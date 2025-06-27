@@ -178,38 +178,7 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-33.3333%); }
-}
-
-.animate-carousel {
-  animation: scroll 20s linear infinite;
-}
-
-@media (max-width: 768px) {
-  .animate-carousel {
-    animation-duration: 5s;
-  }
-}
-
-@media (min-width: 1200px) {
-  .animate-carousel {
-    animation-duration: 25s;
-  }
-}
-.carousel-track {
-  display: flex;
-  width: fit-content;
-  animation: scroll 20s linear infinite;
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.animate-carousel{
+  animation: scroll 5s linear infinite;
 }
 

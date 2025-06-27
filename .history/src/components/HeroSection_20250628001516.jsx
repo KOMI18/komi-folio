@@ -50,7 +50,7 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-hidden py-20 mt-4 w-full relative">
+      <div className="overflow-hidden py-20 px w-full relative">
       <div className="carousel-track">
         <div className="flex gap-6 logos-row">
           {logos.map((logo, index) => (

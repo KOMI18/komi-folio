@@ -50,48 +50,48 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-hidden py-20 mt-4 w-full relative">
-      <div className="carousel-track">
-        <div className="flex gap-6 logos-row">
-          {logos.map((logo, index) => (
-            <div
-              key={index}
-              className="w-20 h-20 flex items-center justify-center flex-shrink-0 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-full shadow-sm"
-              style={{ color: logo.color }}
-            >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                width={40}
-                height={40}
-                style={{ filter: `drop-shadow(0 0 2px ${logo.color})` }}
-                className="opacity-70 hover:opacity-100 transition"
-              />
-            </div>
-          ))}
+      <div className="overflow-hidden py-20 w-full relative">
+  <div className="carousel-track">
+    <div className="flex gap-6 logos-row">
+      {logos.map((logo, index) => (
+        <div
+          key={index}
+          className="w-20 h-20 flex items-center justify-center flex-shrink-0 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-full shadow-sm"
+          style={{ color: logo.color }}
+        >
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            width={40}
+            height={40}
+            style={{ filter: `drop-shadow(0 0 2px ${logo.color})` }}
+            className="opacity-70 hover:opacity-100 transition"
+          />
         </div>
-
-        {/* duplicated row */}
-        <div className="flex gap-6 logos-row" aria-hidden="true">
-          {logos.map((logo, index) => (
-            <div
-              key={`clone-${index}`}
-              className="w-20 h-20 flex items-center justify-center flex-shrink-0 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-full shadow-sm"
-              style={{ color: logo.color }}
-            >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                width={40}
-                height={40}
-                style={{ filter: `drop-shadow(0 0 2px ${logo.color})` }}
-                className="opacity-70 hover:opacity-100 transition"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
+
+    {/* duplicated row */}
+    <div className="flex gap-6 logos-row" aria-hidden="true">
+      {logos.map((logo, index) => (
+        <div
+          key={`clone-${index}`}
+          className="w-20 h-20 flex items-center justify-center flex-shrink-0 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-full shadow-sm"
+          style={{ color: logo.color }}
+        >
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            width={40}
+            height={40}
+            style={{ filter: `drop-shadow(0 0 2px ${logo.color})` }}
+            className="opacity-70 hover:opacity-100 transition"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
 
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
         <span className="text-sm text-muted-foreground mb-2"> Scroll </span>
