@@ -27,44 +27,16 @@ export const ContactSection = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    const SERVICE_ID = "service_evh08ne";
-    const TEMPLATE_ID =  "template_2k65re8";
-    const USER_ID = "vzeV7F7Fu9dughDyi";
-    const templateParams = {
-      from_name: formData.email,
-      user_name: formData.name,
-      to_name: "tehemparfait@gmail.com",
-      message: formData.message,
-    };
-    setIsSubmitting(true);
-    emailjs
-    .send(
-      SERVICE_ID,
-      TEMPLATE_ID,
-      templateParams,
-      USER_ID
-    )
-    .then(
-      (result) => {
-        console.log(result.text);
-        toast({
-          title: "Message envoyé!",
-          description: " Merci de m'avoir envoyé un message. Je vous recontacterais très bientôt.",
-        });
-      setIsSubmitting(false);
 
-      },
-      (error) => {
-        console.log(error.text);
-        setFormdata({
-          alertmessage: `Faild to send!,${error.text}`,
-          variant: "danger",
-          show: true,
-        });
-        document.getElementsByClassName("co_alert")[0].scrollIntoView();
-      }
-    );
-   
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      toast({
+        title: "Message envoyé!",
+        description: " Merci de m'avoir envoyé un message. Je vous recontacterais très bientôt.",
+      });
+      setIsSubmitting(false);
+    }, 1500);
   };
   const handleChange = (e) => {
     setFormdata({
@@ -171,7 +143,6 @@ export const ContactSection = () => {
                   name="name"
                   value={formData.name || ""}
                   required
-                  onChange={handleChange}
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
                   placeholder="Parfait Kom..."
                 />
@@ -190,10 +161,9 @@ export const ContactSection = () => {
                   id="email"
                   name="email"
                   value={formData.email || ""}
-                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
-                  placeholder="ex : johndoe@gmail.com"
+                  placeholder="johndoe@gmail.com"
                 />
               </div>
 
@@ -209,8 +179,6 @@ export const ContactSection = () => {
                   id="message"
                   name="message"
                   required
-                  value={formData.message}
-                  onChange={handleChange}
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary resize-none"
                   placeholder="Hello, Je voudrais avoir plus d'informations..."
                 />

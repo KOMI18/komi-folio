@@ -27,44 +27,16 @@ export const ContactSection = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    const SERVICE_ID = "service_evh08ne";
-    const TEMPLATE_ID =  "template_2k65re8";
-    const USER_ID = "vzeV7F7Fu9dughDyi";
-    const templateParams = {
-      from_name: formData.email,
-      user_name: formData.name,
-      to_name: "tehemparfait@gmail.com",
-      message: formData.message,
-    };
-    setIsSubmitting(true);
-    emailjs
-    .send(
-      SERVICE_ID,
-      TEMPLATE_ID,
-      templateParams,
-      USER_ID
-    )
-    .then(
-      (result) => {
-        console.log(result.text);
-        toast({
-          title: "Message envoyé!",
-          description: " Merci de m'avoir envoyé un message. Je vous recontacterais très bientôt.",
-        });
-      setIsSubmitting(false);
 
-      },
-      (error) => {
-        console.log(error.text);
-        setFormdata({
-          alertmessage: `Faild to send!,${error.text}`,
-          variant: "danger",
-          show: true,
-        });
-        document.getElementsByClassName("co_alert")[0].scrollIntoView();
-      }
-    );
-   
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      toast({
+        title: "Message envoyé!",
+        description: " Merci de m'avoir envoyé un message. Je vous recontacterais très bientôt.",
+      });
+      setIsSubmitting(false);
+    }, 1500);
   };
   const handleChange = (e) => {
     setFormdata({

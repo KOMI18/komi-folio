@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import * as emailjs from "emailjs-com";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 const navItems = [

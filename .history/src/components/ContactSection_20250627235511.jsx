@@ -64,7 +64,9 @@ export const ContactSection = () => {
         document.getElementsByClassName("co_alert")[0].scrollIntoView();
       }
     );
-   
+    setTimeout(() => {
+    
+    }, 1500);
   };
   const handleChange = (e) => {
     setFormdata({

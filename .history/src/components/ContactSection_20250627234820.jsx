@@ -39,20 +39,20 @@ export const ContactSection = () => {
     setIsSubmitting(true);
     emailjs
     .send(
-      SERVICE_ID,
-      TEMPLATE_ID,
+      contactConfig.SERVICE_ID,
+      contactConfig.YOUR_TEMPLATE_ID,
       templateParams,
-      USER_ID
+      contactConfig.YOUR_USER_ID
     )
     .then(
       (result) => {
         console.log(result.text);
-        toast({
-          title: "Message envoyé!",
-          description: " Merci de m'avoir envoyé un message. Je vous recontacterais très bientôt.",
+        setFormdata({
+          loading: false,
+          alertmessage: "SUCCESS! ,Thankyou for your messege",
+          variant: "success",
+          show: true,
         });
-      setIsSubmitting(false);
-
       },
       (error) => {
         console.log(error.text);
@@ -64,7 +64,13 @@ export const ContactSection = () => {
         document.getElementsByClassName("co_alert")[0].scrollIntoView();
       }
     );
-   
+    setTimeout(() => {
+      toast({
+        title: "Message envoyé!",
+        description: " Merci de m'avoir envoyé un message. Je vous recontacterais très bientôt.",
+      });
+      setIsSubmitting(false);
+    }, 1500);
   };
   const handleChange = (e) => {
     setFormdata({

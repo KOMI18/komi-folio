@@ -51,8 +51,6 @@ export const ContactSection = () => {
           title: "Message envoyé!",
           description: " Merci de m'avoir envoyé un message. Je vous recontacterais très bientôt.",
         });
-      setIsSubmitting(false);
-
       },
       (error) => {
         console.log(error.text);
@@ -64,7 +62,10 @@ export const ContactSection = () => {
         document.getElementsByClassName("co_alert")[0].scrollIntoView();
       }
     );
-   
+    setTimeout(() => {
+    
+      setIsSubmitting(false);
+    }, 1500);
   };
   const handleChange = (e) => {
     setFormdata({
