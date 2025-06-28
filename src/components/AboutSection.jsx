@@ -30,7 +30,7 @@ export const AboutSection = () => {
       <div className="about-card opacity-0 transition-opacity duration-700 ease-out translate-y-4 container mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2  gap-12 items-center">
         {/* Image */}
         <div className="order-first md:order-last flex justify-center md:justify-start">
-          <div className="w-40 h-20 sm:w-80 sm:h-80 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[400px] relative transform rotate-3 rounded-xl overflow-hidden border-4 border-primary shadow-lg transition-transform duration-500 hover:scale-105">
+          <div className="w-50 h-50 sm:w-80 sm:h-80 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] relative transform rotate-3 rounded-xl overflow-hidden border-4 border-primary shadow-lg transition-transform duration-500 hover:scale-105">
             <img
               src="/projects/parfaitkom.jpeg"
               alt="Parfait Kom"
