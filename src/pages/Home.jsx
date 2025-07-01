@@ -18,7 +18,7 @@ export const Home = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Durée visible du loader (ajuste selon ton goût)
+    }, 2000); 
 
     return () => clearTimeout(timeout);
   }, []);

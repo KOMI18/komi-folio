@@ -53,7 +53,7 @@ export const ExpertiseSection = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="expertise-card opacity-0 transition-opacity duration-700 ease-out translate-y-4 relative z-10 bg-card border border-border rounded-xl p-6 shadow-md hover:shadow-lg flex flex-col justify-between"
+              className="expertise-card card-hover opacity-0 transition-opacity duration-700 ease-out translate-y-4 relative z-10 bg-card border border-border rounded-xl p-6 shadow-md hover:shadow-lg flex flex-col justify-between"
             >
               <div>
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-background px-3 py-1 rounded-full border border-primary text-primary text-sm font-medium shadow">

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const projects = [
 
   {
-    id: 2,
+    id: 1,
     title: "Flutter Stater",
     description:
       "Base de projet Flutter prête à l’emploi, pensée pour accélérer le démarrage et la productivité des développeurs",
@@ -33,7 +33,7 @@ const projects = [
     githubUrl: "#",
   },
   {
-    id: 2,
+    id: 4,
     title: "Suite Sale",
     description:
       "Plateforme e-commerce PWA, dédiée aux commerçants de l’agroalimentaire local : gestion des produits, des ventes et des stocks, avec mise en avant du commerce de proximité.",
@@ -43,7 +43,7 @@ const projects = [
     githubUrl: "#",
   },
   {
-    id: 1,
+    id: 5,
     title: "Suite Bar ",
     description:
       "PWA (progressive web app) dédiée à la gestion complète de snack-bars : ventes, stocks et personnel depuis votre telephone mobile",
@@ -52,7 +52,16 @@ const projects = [
     demoUrl: "https://cosmopharmalindustry.com/bragherstudio.suite-ba/pages/user_login.php",
     githubUrl: "#",
   },
-  
+  {
+    id: 6,
+    title: "Auto Work",
+    description:
+      "Un site web pour un Garage auto ",
+    image: "/projects/autocar.png",
+    tags: ["React", "Tailwind CSS" , "Framer Motion"],
+    demoUrl: "https://auto-car-repaire.vercel.app/",
+    githubUrl: "https://github.com/KOMI18/auto-car-repaire",
+  },
 ];
  
   
