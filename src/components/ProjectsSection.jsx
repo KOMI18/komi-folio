@@ -67,8 +67,8 @@ const projects = [
     description: "Site web moderne pour une thérapeute, conçu avec React et animé avec Framer Motion. Design minimaliste et apaisant, optimisé pour une expérience utilisateur fluide.",
     image: "/projects/therapie.png",
     tags: ["React", "Tailwind CSS", "Framer Motion"],
-    demoUrl: "https://auto-car-repaire.vercel.app/",
-    githubUrl: "https://github.com/KOMI18/auto-car-repaire",
+    demoUrl: "https://harmony-therapie.vercel.app/",
+    githubUrl: "https://github.com/KOMI18/harmony-therapy",
 }
 ];
  
