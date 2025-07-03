@@ -55,13 +55,21 @@ const projects = [
   {
     id: 6,
     title: "Auto Work",
-    description:
-      "Un site web pour un Garage auto ",
+    description: "Site vitrine haute performance pour un garage automobile. Interface moderne avec animations fluides, mettant en valeur les services et l'expertise mécanique.",
     image: "/projects/autocar.png",
-    tags: ["React", "Tailwind CSS" , "Framer Motion"],
+    tags: ["React", "Tailwind CSS", "Framer Motion"],
     demoUrl: "https://auto-car-repaire.vercel.app/",
     githubUrl: "https://github.com/KOMI18/auto-car-repaire",
-  },
+},
+  {
+    id: 7,
+    title: "Harmony Therapy",
+    description: "Site web moderne pour une thérapeute, conçu avec React et animé avec Framer Motion. Design minimaliste et apaisant, optimisé pour une expérience utilisateur fluide.",
+    image: "/projects/autocar.png",
+    tags: ["React", "Tailwind CSS", "Framer Motion"],
+    demoUrl: "https://auto-car-repaire.vercel.app/",
+    githubUrl: "https://github.com/KOMI18/auto-car-repaire",
+}
 ];
  
   
