@@ -208,10 +208,7 @@ export const SkillsSection = () => {
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Header */}
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium mb-4">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span>Technologies maîtrisées</span>
-          </div>
+         
           <h2 className="text-4xl md:text-5xl font-bold">
             Stack <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">technique</span>
           </h2>
