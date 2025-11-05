@@ -28,13 +28,13 @@ export const ExperienceSection = () => {
       period: "Août 2024 → Juin 2025",
       duration: "10 mois",
       location: "Temps plein",
-      role: "Développeur Flutter",
+      role: "Développeur Flutter principal",
       link: "https://theprogrammeragency.com/fr",
-      description: "J'ai conçu Speedara, une plateforme d'expédition de colis avec deux applications : Speedara (client) et Speedara Pro (livreur). Une solution fluide et rapide pour la logistique urbaine.",
+      description: "En tant que développeur Flutter principal, j’ai contribué au développement de Speedara, une plateforme d’expédition de colis avec deux applications : Speedara (client) et Speedara Pro (livreur). J’ai assuré la partie mobile principale et collaboré étroitement avec l’équipe backend pour offrir une expérience fluide et performante.",
       tags: ["Flutter", "Firebase", "Maps API", "Real-time"],
       color: "#8B5CF6",
       isActive: false
-    },
+    },    
     {
       id: "yiel",
       company: "Yiel Group",
@@ -55,16 +55,17 @@ export const ExperienceSection = () => {
       company: "MENOSI",
       logo: "/logo/menosi.jpeg",
       logoFallback: "ME",
-      period: "Oct 2024 → 2025",
-      duration: "En cours",
+      period: "Oct 2024 → Mars 2025",
+      duration: "5 mois",
       location: "Remote",
       role: "Développeur Flutter",
       link: "https://menosi.net/",
-      description: "J'ai développé JappCare Auto, une application mobile qui connecte les utilisateurs à des garages automobiles proches. Réservation en ligne, gestion de planning et intervention rapide des garagistes.",
+      description: "J’ai participé au développement de JappCare Auto, une application mobile connectant les utilisateurs à des garages automobiles à proximité. J’ai travaillé sur la conception des interfaces et les fonctionnalités principales telles que la géolocalisation, la réservation et la gestion des interventions.",
       tags: ["Flutter", "Booking System", "Geolocation", "Payment"],
       color: "#F59E0B",
       isActive: false
-    }
+    },
+    
   ];
 
   useEffect(() => {

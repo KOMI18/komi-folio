@@ -12,12 +12,36 @@ export const HeroSection = () => {
   ];
 
   useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      // Supprime le # pour récupérer l'id de la section
+      const elementId = hash.replace("#", "");
+      const element = document.getElementById(elementId);
+
+      if (element) {
+        // Scroll fluide vers la section
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % rotatingWords.length);
     }, 2500);
     return () => clearInterval(interval);
   }, []);
+  // useEffect(() => {
+  //   // Vérifie s'il y a un hash dans l'URL (ex: #experience)
+  //   const hash = window.location.hash;
+  //   if (hash) {
+  //     // Supprime le # pour récupérer l'id de la section
+  //     const elementId = hash.replace("#", "");
+  //     const element = document.getElementById(elementId);
 
+  //     if (element) {
+  //       // Scroll fluide vers la section
+  //       element.scrollIntoView({ behavior: "smooth" });
+  //     }
+  //   }
+  // }, []); 
   const logos = [
     { src: "/logo/react.svg", alt: "React", color: "#61DAFB" },
     { src: "/logo/nextdotjs.svg", alt: "Next.js", color: "#FF6C37" },

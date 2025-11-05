@@ -381,7 +381,7 @@ export const EventsHackathonsPage = () => {
             Contactez-moi pour participer à votre prochain événement !
           </p>
           <a
-            href="#contact"
+            href="/#contact"
             className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-primary/50"
           >
             Me contacter
