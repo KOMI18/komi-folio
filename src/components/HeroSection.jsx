@@ -1,103 +1,179 @@
-import { ArrowDown , Image } from "lucide-react";
+
+import { ArrowDown, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const HeroSection = () => {
-  const logos = [
-    { src: "/logo/flutter.svg", alt: "Flutter", color: "#02569B" },
-    { src: "/logo/react.svg", alt: "React", color: "#61DAFB" },
-    { src: "/logo/nodedotjs.svg", alt: "Node.js", color: "#339933" },
-    { src: "/logo/javascript.svg", alt: "JavaScript", color: "#F7DF1E" },
-    { src: "/logo/html5.svg", alt: "HTML5", color: "#E34F26" },
-    { src: "/logo/css.svg", alt: "CSS3", color: "#1572B6" },
-    { src: "/logo/mongodb.svg", alt: "MongoDB", color: "#47A248" },
-    { src: "/logo/dart.svg", alt: "Dart", color: "#0175C2" },
-    { src: "/logo/express.svg", alt: "Express", color: "#02569B" },
-    { src: "/logo/github.svg", alt: "GitHub", color: "#181717" },
-    { src: "/logo/gitlab.svg", alt: "GitLab", color: "#FC6D26" },
-    { src: "/logo/mongoose.svg", alt: "Mongoose", color: "#800000" },
-    { src: "/logo/nextdotjs.svg", alt: "Next.js", color: "#FF6C37" },
-    { src: "/logo/notion.svg", alt: "Notion", color: "#000000" },
-    { src: "/logo/postman.svg", alt: "Postman", color: "#FF6C37" },
-    { src: "/logo/tailwindcss.svg", alt: "Tailwind", color: "#06B6D4" },
+  const [activeIndex, setActiveIndex] = useState(0);
+  
+  const rotatingWords = [
+    "scalables",
+    "rentables",
+    "modernes"
   ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const logos = [
+    { src: "/logo/react.svg", alt: "React", color: "#61DAFB" },
+    { src: "/logo/nextdotjs.svg", alt: "Next.js", color: "#FF6C37" },
+    { src: "/logo/flutter.svg", alt: "Flutter", color: "#02569B" },
+    { src: "/logo/nodedotjs.svg", alt: "Node.js", color: "#339933" },
+    { src: "/logo/mongodb.svg", alt: "MongoDB", color: "#47A248" },
+    { src: "/logo/tailwindcss.svg", alt: "Tailwind", color: "#06B6D4" },
+    { src: "/logo/javascript.svg", alt: "JavaScript", color: "#F7DF1E" },
+    { src: "/logo/dart.svg", alt: "Dart", color: "#0175C2" },
+  ];
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center px-4"
+      className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
     >
-      <div className="container max-w-4xl mx-auto text-center z-10">
-        <div className="space-y-6">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-            <span className="opacity-0 animate-fade-in">Salut, je suis</span>
-            <span className="text-primary opacity-0 animate-fade-in-delay-1">
-              {" "}
-              Parfait
-            </span>
-            <span className="text-gradient ml-2 opacity-0 animate-fade-in-delay-2">
-              {" "}
-              Kom
-            </span>
-          </h1>
+      {/* Animated background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 animate-pulse" style={{ animationDuration: '4s' }} />
+      
+      <div className="container max-w-5xl mx-auto text-center z-10">
+        <div className="space-y-8">
+          {/* Badge */}
+         
+      
+          {/* Main headline with rotating word */}
+          <div className="space-y-4">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight  animate-fade-in">
+              Je construis des applications{" "}
+              <span className="inline-block min-w-[280px] md:min-w-[400px] text-left">
+                <span 
+                  key={activeIndex}
+                  className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-primary animate-word-fade"
+                >
+                  {rotatingWords[activeIndex]}
+                </span>
+              </span>
+            </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-          Je transforme vos idées en applications  puissantes, prêtes à faire décoller votre business.
-          PME, startups ou entrepreneurs : si vous cherchez quelqu’un qui livre vite et bien, vous êtes au bon endroit
-          </p>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto opacity-0 animate-fade-in-delay-2 leading-relaxed">
+              Mobile, web, backend  je gère tout de A à Z pour que vous puissiez vous concentrer sur votre business. 
+              <span className="block mt-2 font-medium text-foreground">Rapidité. Qualité. Résultats.</span>
+            </p>
+          </div>
 
-          <div className="pt-4 opacity-0 animate-fade-in-delay-4">
-            <a href="#projects" className="cosmic-button">
-             Voir mon travail
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4 opacity-0 animate-fade-in-delay-3">
+            <a 
+              href="#projects" 
+              className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-primary/50"
+            >
+              Voir mes réalisations
+            </a>
+            <a 
+              href="#contact" 
+              className="px-8 py-4 border-2 border-primary/30 rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+            >
+              Discutons de votre projet
             </a>
           </div>
         </div>
       </div>
-      <div className="overflow-hidden py-20 mt-4 w-full relative">
-      <div className="carousel-track">
-        <div className="flex gap-6 logos-row">
-          {logos.map((logo, index) => (
-            <div
-              key={index}
-              className="w-20 h-20 flex items-center justify-center flex-shrink-0 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-full shadow-sm"
-              style={{ color: logo.color }}
-            >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                width={40}
-                height={40}
-                style={{ filter: `drop-shadow(0 0 2px ${logo.color})` }}
-                className="opacity-70 hover:opacity-100 transition"
-              />
-            </div>
-          ))}
-        </div>
 
-        {/* duplicated row */}
-        <div className="flex gap-6 logos-row" aria-hidden="true">
-          {logos.map((logo, index) => (
-            <div
-              key={`clone-${index}`}
-              className="w-20 h-20 flex items-center justify-center flex-shrink-0 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-full shadow-sm"
-              style={{ color: logo.color }}
-            >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                width={40}
-                height={40}
-                style={{ filter: `drop-shadow(0 0 2px ${logo.color})` }}
-                className="opacity-70 hover:opacity-100 transition"
-              />
-            </div>
-          ))}
+      {/* Tech Stack - Modern Grid Display */}
+      <div className="mt-20 w-full max-w-4xl mx-auto opacity-0 animate-fade-in-delay-4">
+        <p className="text-center text-sm text-muted-foreground mb-6 font-medium tracking-wide uppercase">
+          Stack technique
+        </p>
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-4 md:gap-6">
+                  {logos.map((logo, index) => (
+             <div
+               key={index}
+               className="group relative aspect-square flex items-center justify-center  rounded-2xl border border-white/10 hover:border-white/30 transition-all duration-300 hover:scale-110 hover:shadow-lg"
+               style={{ 
+                 animationDelay: `${index * 100}ms`,
+                 boxShadow: `0 0 20px ${logo.color}15`
+               }}
+             >
+               <img
+                 src={logo.src}
+                 alt={logo.alt}
+                
+                 className="w-8 h-8 md:w-10 md:h-10  group-hover:opacity-100 transition-opacity duration-300"
+                 style={{ 
+                   filter: `drop-shadow(0 0 8px ${logo.color})` 
+                 }}
+               />
+               <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                 {logo.alt}
+               </span>
+             </div>
+           ))}
         </div>
       </div>
-    </div>
 
+      {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-        <span className="text-sm text-muted-foreground mb-2"> Scroll </span>
-        <ArrowDown className="h-5 w-5 text-primary" />
+        <ArrowDown className="h-6 w-6 text-primary" />
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes word-fade {
+          0% {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          10% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          90% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+        }
+
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out forwards;
+        }
+
+        .animate-fade-in-delay-1 {
+          animation: fade-in 0.6s ease-out 0.2s forwards;
+        }
+
+        .animate-fade-in-delay-2 {
+          animation: fade-in 0.6s ease-out 0.4s forwards;
+        }
+
+        .animate-fade-in-delay-3 {
+          animation: fade-in 0.6s ease-out 0.6s forwards;
+        }
+
+        .animate-fade-in-delay-4 {
+          animation: fade-in 0.6s ease-out 0.8s forwards;
+        }
+
+        .animate-word-fade {
+          animation: word-fade 2.5s ease-in-out;
+        }
+      `}</style>
     </section>
   );
-  
 };
+
+export default HeroSection;

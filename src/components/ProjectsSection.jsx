@@ -13,6 +13,36 @@ const projects = [
     githubUrl: "https://github.com/KOMI18/flutter_starter/tree/master",
   },
   {
+    id: 1,
+    title: "Ivity",
+    description:
+      "Invity est une plate forme Saas qui permet de facilite l'organisation de vos, Créez, personnalisez et envoyez vos invitations d'événements avec des codes QR uniques. Une expérience fluide de l'invitation à l'entrée.",
+    image: "/projects/invity.png",
+    tags: ["React", "Tailwind CSS" , "Node jS" , "Better Auth" , "Google People"],
+    demoUrl: "https://invity.site",
+    githubUrl: "",
+  },
+  {
+    id: 1,
+    title: "Lokafy",
+    description:
+      "Géré vos loyer et locataire de facons plus intelligents et transparents",
+    image: "/projects/lokafy.png",
+    tags: ["Flutter", "GetX" , "FireBase" ],
+    demoUrl: "#",
+    githubUrl: "https://invity.site",
+  },
+  {
+    id: 1,
+    title: "Cosmopharmal Industry",
+    description:
+      "Plate forme pharmaceutique  d'achat de comcombre de mer au canada",
+    image: "/projects/cosmo.png",
+    tags: ["Next Js", "Sqlite"  ],
+    demoUrl: "https://www.cosmopharmalindustry.org",
+    githubUrl: "",
+  },
+  {
     id: 2,
     title: "Silia",
     description:
