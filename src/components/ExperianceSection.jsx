@@ -44,7 +44,7 @@ export const ExperienceSection = () => {
       duration: "En cours",
       location: "Remote",
       role: "Développeur Backend NodeJs",
-      link: "https://www.linkedin.com/in/yiel-group-915729351/",
+      link: "https://yielgroup.com",
       description: "Je travaille sur une application web SIRH (Système d'Information des Ressources Humaines), en concevant une architecture robuste et des API sûres pour la gestion du personnel.",
       tags: ["Node.js", "MongoDB", "REST API", "Security"],
       color: "#ea5434",

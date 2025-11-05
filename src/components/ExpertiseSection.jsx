@@ -31,7 +31,7 @@ export const ExpertiseSection = () => {
       title: "Développement Mobile",
       tagline: "Dans la poche de vos clients",
       description: "Apps cross-platform avec Flutter. Interface fluide, performances solides, expérience utilisateur irréprochable. iOS et Android, un seul code.",
-      features: ["Flutter & React Native", "UI/UX moderne", "Offline-first"],
+      features: ["Flutter", "UI/UX moderne", "Offline-first"],
       gradient: "from-purple-500 to-pink-500",
       bgGradient: "from-purple-500/10 to-pink-500/10",
       iconBg: "bg-purple-500/10",

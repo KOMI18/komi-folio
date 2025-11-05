@@ -32,7 +32,7 @@ export const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative mt-20 min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
+      className="relative  min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
     >
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 animate-pulse" style={{ animationDuration: '4s' }} />
@@ -43,7 +43,7 @@ export const HeroSection = () => {
          
       
           {/* Main headline with rotating word */}
-          <div className="space-y-4">
+          <div className="mt-25 space-y-4">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight  animate-fade-in">
               Je construis des applications{" "}
               <span className="inline-block min-w-[280px] md:min-w-[400px] text-left">
@@ -57,7 +57,7 @@ export const HeroSection = () => {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto opacity-0 animate-fade-in-delay-2 leading-relaxed">
-              Mobile, web, backend  je gère tout de A à Z pour que vous puissiez vous concentrer sur votre business. 
+            Je transforme vos idées en applications web et mobiles complètes, de la conception au déploiement.
               <span className="block mt-2 font-medium text-foreground">Rapidité. Qualité. Résultats.</span>
             </p>
           </div>

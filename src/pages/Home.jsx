@@ -13,36 +13,36 @@ import { ExperienceSection } from "../components/ExperianceSection";
 import { ExpertiseSection } from "../components/ExpertiseSection";
 
 export const Home = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000); 
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 2000); 
 
-    return () => clearTimeout(timeout);
-  }, []);
+  //   return () => clearTimeout(timeout);
+  // }, []);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-background text-foreground">
-      <DotLottieReact
-          src="/animation/initial.lottie"
-          loop
-          autoplay
-          style={{ width: "600px", height: "600px" }}
-        />
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex items-center justify-center h-screen bg-background text-foreground">
+  //     <DotLottieReact
+  //         src="/animation/initial.lottie"
+  //         loop
+  //         autoplay
+  //         style={{ width: "600px", height: "600px" }}
+  //       />
 
-      </div>
-    );
-  }
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <ThemeToggle />
+      {/* <ThemeToggle />
       <StarBackground />
       <Navbar />
-      <main>
+      <main> */}
         <HeroSection />
         <AboutSection />
         <ExpertiseSection />
@@ -50,8 +50,8 @@ export const Home = () => {
         <SkillsSection />
         <ProjectsSection />
         <ContactSection />
-      </main>
-      <Footer />
+      {/* </main> */}
+      {/* <Footer /> */}
     </div>
   );
 };

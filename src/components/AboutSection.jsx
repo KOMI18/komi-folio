@@ -110,8 +110,8 @@ export const AboutSection = () => {
               </p>
 
               <div className="flex flex-wrap gap-4 pt-4">
-                <a href="#contact" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-primary/50 inline-flex items-center gap-2">
-                  Démarrer un projet
+                <a href="/events" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-primary/50 inline-flex items-center gap-2">
+                  Mes Events et Hackathons
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
