@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import * as emailjs from "emailjs-com";
+import handleSendSuscribtion from "../lib/emailservices";
 import {
   BookOpen,
   Sparkles,
@@ -19,52 +20,17 @@ export const BlogComingSoonPage = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubscrib = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubscribed(true);
-      setIsSubmitting(false);
-      setEmail("");
-      
-      // Reset after 5 seconds
-      setTimeout(() => setIsSubscribed(false), 5000);
-    }, 1500);
-  };
+ 
   const handleSubscribe = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const SERVICE_ID = "service_evh08ne";
-    const TEMPLATE_ID = "template_2k65re8";
-    const USER_ID = "vzeV7F7Fu9dughDyi";
-
-    const templateParams = {
-        from_name: "Parfait Kom",
-        user_name: email,
-        to_name: email,
-        message: `Salut ${email} 👋,
-      Merci de t’être abonné(e) à ma newsletter !
-      
-      Ici, je partage mes projets, mes découvertes tech, et des conseils autour du développement web, mobile et backend.
-      
-      Promis, pas de spam  juste du contenu utile, inspirant et authentique.
-      
-      À très bientôt dans ta boîte mail 👨‍💻  
-      Parfait Kom`,
-      };
-      
-
-    setIsSubmitting(true);
-
     try {
-      await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID);
+      await handleSendSuscribtion(email);
       setIsSubscribed(true);
       setIsSubmitting(false);
       setEmail("")
       // Reset success message after 5 seconds
-      setTimeout(() => setIsSuccess(false), 5000);
+      setTimeout(() => setIsSubscribed(false), 5000);
     } catch (error) {
       console.error("Failed to send:", error);
       alert("Échec de l'envoi. Veuillez réessayer.");
