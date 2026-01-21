@@ -100,7 +100,7 @@ export const BlogComingSoonPage = () => {
           <div className="mt-20 space-y-4 animate-fade-in-delay-1">
             <h1 className="text-5xl md:text-7xl font-bold">
               Le Blog arrive
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-primary">
+              <span className="block text-primary">
                 très bientôt
               </span>
             </h1>

@@ -174,7 +174,7 @@ export const EventsHackathonsPage = () => {
         <div className="text-center mb-16 space-y-4">
           
           <h1 className="text-4xl mt-20 md:text-6xl font-bold">
-            Mon parcours <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-primary">compétitif</span>
+            Mon parcours <span className="text-primary">compétitif</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Des hackathons, des conférences enrichissantes et des projets réalisés sous pression. 
