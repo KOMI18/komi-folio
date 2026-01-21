@@ -91,7 +91,7 @@ export const ExpertiseSection = () => {
         <div className="text-center mb-16 space-y-4">
          
           <h2 className="text-4xl md:text-6xl font-bold">
-            Expertises qui <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-primary">transforment</span>
+            Expertises qui <span className="text-transparent bg-clip-text bg-primary">transforment</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Du concept à la prod, je prends en charge toute la chaîne technique pour que vous puissiez vous concentrer sur votre croissance.

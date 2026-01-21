@@ -3,8 +3,71 @@ import { ArrowUpRight, Calendar, MapPin, ExternalLink } from "lucide-react";
 
 export const ExperienceSection = () => {
   const [hoveredId, setHoveredId] = useState(null);
+function calculateDuration(period) {
+  const [start, end] = period.split("→").map(p => p.trim());
+
+  const [startMonth, startYear] = start.split("/").map(Number);
+  const startDate = new Date(startYear, startMonth - 1);
+
+  let endDate;
+  if (end.toLowerCase() === "present") {
+    endDate = new Date();
+  } else {
+    const [endMonth, endYear] = end.split("/").map(Number);
+    endDate = new Date(endYear, endMonth - 1);
+  }
+
+  let months =
+    (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+    (endDate.getMonth() - startDate.getMonth());
+
+  if (months < 0) months = 0;
+
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+
+  if (years > 0 && remainingMonths > 0) {
+    return `${years} year${years > 1 ? "s" : ""} ${remainingMonths} month${remainingMonths > 1 ? "s" : ""}`;
+  }
+
+  if (years > 0) {
+    return `${years} year${years > 1 ? "s" : ""}`;
+  }
+
+  return `${remainingMonths} month${remainingMonths > 1 ? "s" : ""}`;
+}
 
   const experiences = [
+     {
+      id: "repeater",
+      company: "REPEATER",
+      logo: "/logo/repeater.png", // Remplace par le vrai chemin
+      logoFallback: "",
+      period: "12/2025 → Present",
+      duration: "En cours",
+      location: "Hybrid",
+      role: "Développeur Web",
+      link: "https://repeater.edu.cm",
+      description: "Intégré à une équipe agile, je developpe des module LMS pour la plate-forme Repeater",
+      tags: ["Flutter", "React", "Agile", "Debugging"],
+      color: "#e01d1dff",
+      isActive: true
+    },
+    {
+      id: "yiel",
+      company: "Yiel Group",
+      logo: "/logo/yiel.png",
+      logoFallback: "YG",
+      period: "Oct 2024 → Present",
+      duration: "En cours",
+      location: "Remote",
+      role: "Développeur Backend NodeJs",
+      link: "https://yielgroup.com",
+      description: "Je travaille sur une application web SIRH (Système d'Information des Ressources Humaines), en concevant une architecture robuste et des API sûres pour la gestion du personnel.",
+      tags: ["Node.js", "MongoDB", "REST API", "Security"],
+      color: "#ea5434",
+      isActive: true
+    },
     {
       id: "togettech",
       company: "TOGETTECH",
@@ -18,7 +81,7 @@ export const ExperienceSection = () => {
       description: "Intégré à une équipe agile, j'ai développé des modules front et mobile pour des applications internes. J'ai apporté des solutions concrètes sur des bugs critiques et assuré la stabilité des livrables.",
       tags: ["Flutter", "React", "Agile", "Debugging"],
       color: "#3B82F6",
-      isActive: true
+      isActive: false
     },
     {
       id: "programmer",
@@ -35,21 +98,7 @@ export const ExperienceSection = () => {
       color: "#8B5CF6",
       isActive: false
     },    
-    {
-      id: "yiel",
-      company: "Yiel Group",
-      logo: "/logo/yiel.png",
-      logoFallback: "YG",
-      period: "Oct 2024 → 2025",
-      duration: "En cours",
-      location: "Remote",
-      role: "Développeur Backend NodeJs",
-      link: "https://yielgroup.com",
-      description: "Je travaille sur une application web SIRH (Système d'Information des Ressources Humaines), en concevant une architecture robuste et des API sûres pour la gestion du personnel.",
-      tags: ["Node.js", "MongoDB", "REST API", "Security"],
-      color: "#ea5434",
-      isActive: true
-    },
+    
     {
       id: "menosi",
       company: "MENOSI",
@@ -100,7 +149,7 @@ export const ExperienceSection = () => {
         {/* Header */}
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-bold">
-            Parcours <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">professionnel</span>
+            Parcours <span className="text-transparent bg-clip-text bg-primary">professionnel</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Des missions concrètes, des résultats mesurables, et des collaborations enrichissantes avec des équipes ambitieuses.

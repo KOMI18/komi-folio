@@ -152,6 +152,15 @@ export const SkillsSection = () => {
       description: "Tests API, collections, automatisation",
       mastery: "expert"
     },
+     { 
+      name: "n8n Automation", 
+      category: "tools", 
+      experience: "1+ ans",
+      projects: "Usage quotidien",
+      icon: "/logo/n8n.jpeg",
+      description: "Automatisation , Assistant IA ",
+      mastery: "expert"
+    },
     { 
       name: "Notion", 
       category: "tools", 
@@ -210,7 +219,7 @@ export const SkillsSection = () => {
         <div className="text-center mb-16 space-y-4">
          
           <h2 className="text-4xl md:text-5xl font-bold">
-            Stack <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">technique</span>
+            Stack <span className=" text-primary">technique</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Des années d'expérience concrète sur des projets réels. Pas de théorie, que de la pratique.

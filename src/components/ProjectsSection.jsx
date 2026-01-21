@@ -73,6 +73,15 @@ const projects = [
     githubUrl: "#",
   },
   {
+    id: 7,
+    title: "Rizuk",
+    description: "Rizuk est une plate forme de vente de produits pour l'alimentation des bébé : Robot culinaire , chauffe biberon",
+    image: "/projects/rizuk.png",
+    tags: ["React", "Tailwind CSS", "Framer Motion"],
+    demoUrl: "https://rizuk.com/",
+    githubUrl: "#",
+},
+  {
     id: 5,
     title: "Suite Bar ",
     description:
@@ -100,6 +109,7 @@ const projects = [
     demoUrl: "https://harmony-therapie.vercel.app/",
     githubUrl: "https://github.com/KOMI18/harmony-therapy",
 }
+
 ];
  
   

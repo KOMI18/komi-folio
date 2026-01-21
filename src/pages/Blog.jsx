@@ -120,7 +120,7 @@ export const BlogComingSoonPage = () => {
               <div className="text-sm text-muted-foreground">Catégories</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-green-500 mb-1">12/2025</div>
+              <div className="text-4xl font-bold text-green-500 mb-1">04/2026</div>
               <div className="text-sm text-muted-foreground">Lancement prévu</div>
             </div>
           </div>

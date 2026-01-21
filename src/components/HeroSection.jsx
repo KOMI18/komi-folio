@@ -46,11 +46,13 @@ export const HeroSection = () => {
     { src: "/logo/react.svg", alt: "React", color: "#61DAFB" },
     { src: "/logo/nextdotjs.svg", alt: "Next.js", color: "#FF6C37" },
     { src: "/logo/flutter.svg", alt: "Flutter", color: "#02569B" },
-    { src: "/logo/nodedotjs.svg", alt: "Node.js", color: "#339933" },
+    // { src: "/logo/nodedotjs.svg", alt: "Node.js", color: "#339933" },
     { src: "/logo/mongodb.svg", alt: "MongoDB", color: "#47A248" },
     { src: "/logo/tailwindcss.svg", alt: "Tailwind", color: "#06B6D4" },
     { src: "/logo/javascript.svg", alt: "JavaScript", color: "#F7DF1E" },
     { src: "/logo/dart.svg", alt: "Dart", color: "#0175C2" },
+    { src: "/logo/n8n.jpeg", alt: "N8N", color: "#f70606ff" },
+
   ];
 
   return (
@@ -73,7 +75,7 @@ export const HeroSection = () => {
               <span className="inline-block min-w-[280px] md:min-w-[400px] text-left">
                 <span 
                   key={activeIndex}
-                  className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-primary animate-word-fade"
+                  className="inline-block text-transparent bg-clip-text bg-primary  animate-word-fade"
                 >
                   {rotatingWords[activeIndex]}
                 </span>

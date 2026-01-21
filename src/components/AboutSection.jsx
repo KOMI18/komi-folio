@@ -24,27 +24,27 @@ export const AboutSection = () => {
   }, []);
 
   const timeline = [
-    {
-      year: "Maternelle - Primaire",
-      period: "2008-2015",
-      title: "CEP",
-      description: "Certificat d'Études Primaires - Premières bases en lecture, mathématiques et découverte du monde.",
-      color: "#3B82F6"
-    },
-    {
-      year: "Secondaire",
-      period: "2019",
-      title: "BEPC",
-      description: "Brevet d'Études du Premier Cycle - Consolidation des acquis fondamentaux et orientation vers le second cycle.",
-      color: "#8B5CF6"
-    },
-    {
-      year: "Secondaire",
-      period: "2021",
-      title: "Probatoire",
-      description: "Épreuve anticipée du baccalauréat - Validation des connaissances de première année.",
-      color: "#EC4899"
-    },
+    // {
+    //   year: "Maternelle - Primaire",
+    //   period: "2008-2015",
+    //   title: "CEP",
+    //   description: "Certificat d'Études Primaires - Premières bases en lecture, mathématiques et découverte du monde.",
+    //   color: "#3B82F6"
+    // },
+    // {
+    //   year: "Secondaire",
+    //   period: "2019",
+    //   title: "BEPC",
+    //   description: "Brevet d'Études du Premier Cycle - Consolidation des acquis fondamentaux et orientation vers le second cycle.",
+    //   color: "#8B5CF6"
+    // },
+    // {
+    //   year: "Secondaire",
+    //   period: "2021",
+    //   title: "Probatoire",
+    //   description: "Épreuve anticipée du baccalauréat - Validation des connaissances de première année.",
+    //   color: "#EC4899"
+    // },
     {
       year: "Secondaire",
       period: "2022",
@@ -74,7 +74,7 @@ export const AboutSection = () => {
         {/* Header */}
         <div className="text-center mb-16 fade-in-observe opacity-0">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Du <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">parcours</span> aux résultats
+            Du <span className="text-transparent bg-clip-text bg-primary">parcours</span> aux résultats
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Un chemin construit sur la persévérance, l'apprentissage continu et la passion du code.
@@ -100,14 +100,18 @@ export const AboutSection = () => {
               <h3 className="text-2xl md:text-3xl font-bold">
                 Parfait Kom
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Développeur full-stack passionné, je transforme des idées en applications concrètes qui génèrent de la valeur. 
-                Mobile, web, backend  je maîtrise toute la chaîne de production pour livrer des solutions qui fonctionnent.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Mon approche ? Efficacité, transparence, et résultats mesurables. 
-                Zéro bullshit, du code propre, et un engagement à 100% sur chaque projet.
-              </p>
+             <p className="text-muted-foreground leading-relaxed">
+              Développeur full-stack orienté résultats, je conçois des applications et des systèmes intelligents
+              qui automatisent les processus et font gagner du temps (et de l’argent).
+              Web, mobile, backend, IA : je maîtrise toute la chaîne pour livrer des solutions utiles, pas des démos.
+            </p>
+
+            <p className="text-muted-foreground leading-relaxed">
+              J’automatise ce qui doit l’être, je crée des assistants IA quand ça a du sens,
+              et j’écris du code propre, maintenable et efficace.
+              Mon approche ? Impact réel, transparence totale, zéro bullshit.
+            </p>
+
 
               <div className="flex flex-wrap gap-4 pt-4">
                 <a href="/events" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:scale-105 transition-transform shadow-lg hover:shadow-primary/50 inline-flex items-center gap-2">

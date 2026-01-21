@@ -124,7 +124,7 @@ export const ContactSection = () => {
         <div className="text-center mb-16 space-y-4">
          
           <h2 className="text-4xl md:text-6xl font-bold">
-            Travaillons <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-primary">ensemble</span>
+            Travaillons <span className="text-transparent bg-clip-text bg-primary">ensemble</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Un projet en tête ? Une question ? Ou simplement envie de discuter tech ? 
