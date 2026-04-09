@@ -43,7 +43,7 @@ function calculateDuration(period) {
       company: "REPEATER",
       logo: "/logo/repeater.png", // Remplace par le vrai chemin
       logoFallback: "",
-      period: "12/2025 → Present",
+      period: "12/2025 → 02/2026",
       duration: "En cours",
       location: "Hybrid",
       role: "Développeur Web",
@@ -51,7 +51,7 @@ function calculateDuration(period) {
       description: "Intégré à une équipe agile, je developpe des module LMS pour la plate-forme Repeater",
       tags: ["Flutter", "React", "Agile", "Debugging"],
       color: "#e01d1dff",
-      isActive: true
+      isActive: false
     },
     {
       id: "yiel",
@@ -240,7 +240,7 @@ function calculateDuration(period) {
                   <div className="hidden md:flex flex-wrap items-start justify-between gap-4 mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-2xl font-bold">{exp.company}</h3>
+                        <h3 className="text-left text-2xl font-bold">{exp.company}</h3>
                         <a
                           href={exp.link}
                           target="_blank"
@@ -251,7 +251,7 @@ function calculateDuration(period) {
                           <ExternalLink className="w-5 h-5" />
                         </a>
                       </div>
-                      <p className="text-lg font-semibold text-muted-foreground mb-1">{exp.role}</p>
+                      <p className="text-lg text-left font-semibold text-muted-foreground mb-1">{exp.role}</p>
                     </div>
 
                     {/* Active badge */}

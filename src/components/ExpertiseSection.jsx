@@ -99,7 +99,7 @@ export const ExpertiseSection = () => {
         </div>
 
         {/* Services Cards */}
-        <div className="grid  grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid text-left grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => (
             <div
               key={index}

@@ -2,7 +2,29 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { useEffect } from "react";
 const projects = [
 
+ 
   {
+    id: 1,
+    title: "Geneo",
+    description:
+      "Geneo est une plate forme  qui permet de creer l'arbre genelogique de votre famille de façon collaborative.",
+    image: "/projects/geneo.png",
+    tags: ["Next js", "Tailwind CSS" , "Firebase" , "R2 storage"],
+    demoUrl: "https://geneo.invity.site",
+    githubUrl: "",
+  },
+  
+  {
+    id: 1,
+    title: "Invity",
+    description:
+      "Invity est une plate forme Saas qui permet de facilite l'organisation de vos, Créez, personnalisez et envoyez vos invitations d'événements avec des codes QR uniques. Une expérience fluide de l'invitation à l'entrée.",
+    image: "/projects/invity.png",
+    tags: ["React", "Tailwind CSS" , "Node jS" , "Better Auth" , "Google People"],
+    demoUrl: "https://invity.site",
+    githubUrl: "",
+  },
+   {
     id: 1,
     title: "Flutter Stater",
     description:
@@ -11,16 +33,6 @@ const projects = [
     tags: ["Flutter", "Dart"],
     demoUrl: "#",
     githubUrl: "https://github.com/KOMI18/flutter_starter/tree/master",
-  },
-  {
-    id: 1,
-    title: "Ivity",
-    description:
-      "Invity est une plate forme Saas qui permet de facilite l'organisation de vos, Créez, personnalisez et envoyez vos invitations d'événements avec des codes QR uniques. Une expérience fluide de l'invitation à l'entrée.",
-    image: "/projects/invity.png",
-    tags: ["React", "Tailwind CSS" , "Node jS" , "Better Auth" , "Google People"],
-    demoUrl: "https://invity.site",
-    githubUrl: "",
   },
   {
     id: 1,
@@ -173,7 +185,7 @@ export const ProjectsSection = () => {
                 </div>
 
                 <h3 className="text-xl font-semibold mb-1"> {project.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4">
+                <p className=" text-left text-muted-foreground text-sm mb-4">
                   {project.description}
                 </p>
                 <div className="flex justify-between items-center">
