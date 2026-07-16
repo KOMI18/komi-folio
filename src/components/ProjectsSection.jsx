@@ -13,7 +13,16 @@ const projects = [
     demoUrl: "https://geneo.invity.site",
     githubUrl: "",
   },
-  
+  {
+    id: 1,
+    title: "Whaazz",
+    description:
+      "Déployez des assistants intelligents capables de vendre vos produits, d'enregistrer les commandes, de collecter et vérifier les paiements. Suivez toute votre activité commerciale grâce à notre mini-logiciel de gestion intégré.",
+    image: "/projects/whaazz-11.png",
+    tags: ["Next Js", "Tailwind CSS" , "Node jS" , "N8n" , "Firebase" , "R2 storage"],
+    demoUrl: "https://whaazz.invity.site",
+    githubUrl: "",
+  },
   {
     id: 1,
     title: "Invity",
