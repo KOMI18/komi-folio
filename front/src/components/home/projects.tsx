@@ -56,7 +56,6 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
     <section id="projects" className="py-24">
       <div className="container-page">
         <SectionHeading
-          eyebrow="Projets"
           title={
             <>
               Des produits <span className="accent">en production</span>

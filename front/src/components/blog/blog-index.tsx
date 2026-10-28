@@ -13,8 +13,7 @@ export function BlogIndex({ posts, tags, activeTag }: { posts: PostSummary[]; ta
   return (
     <div className="container-page pt-36 pb-12 md:pt-44">
       <header className="max-w-3xl">
-        <p className="eyebrow">Blog</p>
-        <h1 className="mt-4 text-5xl font-semibold tracking-tight text-balance md:text-6xl">
+        <h1 className="text-5xl font-semibold tracking-tight text-balance md:text-6xl">
           {activeTag ? (
             <>
               Articles <span className="accent">#{activeTag}</span>

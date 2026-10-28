@@ -13,8 +13,7 @@ export default async function EventsPage() {
   return (
     <div className="container-page pt-36 md:pt-44">
       <header className="mb-12 max-w-3xl">
-        <p className="eyebrow">Events</p>
-        <h1 className="mt-4 text-5xl font-semibold tracking-tight text-balance md:text-6xl">
+        <h1 className="text-5xl font-semibold tracking-tight text-balance md:text-6xl">
           Mon parcours <span className="accent">compétitif</span>
         </h1>
         <p className="mt-5 text-lg text-muted">

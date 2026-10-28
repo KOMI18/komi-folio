@@ -37,7 +37,6 @@ export default async function HomePage() {
         <section id="skills" className="py-24">
           <div className="container-page">
             <SectionHeading
-              eyebrow="Compétences"
               title={
                 <>
                   Stack <span className="accent">technique</span>

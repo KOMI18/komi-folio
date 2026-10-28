@@ -12,7 +12,6 @@ export function LatestPosts({ posts }: { posts: PostSummary[] }) {
       <div className="container-page">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
-            eyebrow="Blog"
             title={
               <>
                 Derniers <span className="accent">articles</span>

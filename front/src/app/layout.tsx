@@ -33,7 +33,6 @@ export const metadata: Metadata = {
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
   twitter: { card: "summary_large_image", creator: "@ParfaitKom" },
-  icons: { icon: "/projects/parfaitkom.jpeg" },
 };
 
 export const viewport: Viewport = {
