@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Rss } from "lucide-react";
 import { GithubIcon, InstagramIcon, LinkedinIcon, XIcon } from "./brand-icons";
 import { nav, site } from "@/lib/site";
 import { Year } from "./year";
@@ -9,7 +8,6 @@ const socials = [
   { href: site.socials.linkedin, label: "LinkedIn", icon: LinkedinIcon },
   { href: site.socials.x, label: "X", icon: XIcon },
   { href: site.socials.instagram, label: "Instagram", icon: InstagramIcon },
-  { href: "/rss.xml", label: "Flux RSS", icon: Rss },
 ];
 
 export function Footer() {
@@ -52,7 +50,6 @@ export function Footer() {
           <p>
             © <Year /> {site.name}. Tous droits réservés.
           </p>
-          <p>Fait à Yaoundé avec Next.js & Node.js</p>
         </div>
       </div>
     </footer>
