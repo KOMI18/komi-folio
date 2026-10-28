@@ -40,8 +40,7 @@ export function Contact() {
           <div className="relative border-b p-8 md:p-12 lg:border-r lg:border-b-0">
             <div className="glow pointer-events-none absolute inset-0" />
             <div className="relative">
-              <p className="eyebrow">Contact</p>
-              <h2 className="heading mt-4">
+              <h2 className="heading">
                 Un projet en tête ? <span className="accent">Parlons-en.</span>
               </h2>
               <p className="mt-4 text-muted">

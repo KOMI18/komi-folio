@@ -34,7 +34,6 @@ export function Services() {
     <section id="expertise" className="py-24">
       <div className="container-page">
         <SectionHeading
-          eyebrow="Expertises"
           title={
             <>
               Du concept à la prod, <span className="accent">sans détour</span>

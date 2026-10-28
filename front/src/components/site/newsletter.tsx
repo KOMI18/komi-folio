@@ -28,8 +28,7 @@ export function Newsletter({ className, compact }: { className?: string; compact
       <div className="glow pointer-events-none absolute inset-0" />
       <div className="relative grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-center">
         <div>
-          <p className="eyebrow">Newsletter</p>
-          <h2 className={cn("mt-3 font-semibold tracking-tight", compact ? "text-xl" : "text-3xl")}>
+          <h2 className={cn("font-semibold tracking-tight", compact ? "text-xl" : "text-3xl")}>
             Les nouveaux articles, <span className="accent">directement</span> dans votre boîte mail
           </h2>
           <p className="mt-2 text-sm text-muted">Dev, produit, retours d&apos;expérience. Pas de spam, désinscription en un clic.</p>

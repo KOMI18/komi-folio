@@ -11,7 +11,6 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
     <section id="experience" className="py-24">
       <div className="container-page">
         <SectionHeading
-          eyebrow="Expérience"
           title={
             <>
               Parcours <span className="accent">professionnel</span>

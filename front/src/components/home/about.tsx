@@ -18,7 +18,6 @@ export function About({ education }: { education: Education[] }) {
     <section id="about" className="py-24">
       <div className="container-page">
         <SectionHeading
-          eyebrow="À propos"
           title={
             <>
               Du <span className="accent">parcours</span> aux résultats
