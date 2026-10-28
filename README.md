@@ -1,133 +1,57 @@
-# Build a Modern Portfolio Website with React & TailwindCSS
+# komi-folio
 
-<div align="center">
-  <br />
-  <a href="https://youtu.be/YOUR_VIDEO_ID" target="_blank">
-    <img src="./banner.png" alt="Portfolio Website Banner">
-  </a>
-  <br />
-  <div>
-    <img src="https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
-    <img src="https://img.shields.io/badge/-TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss" alt="Tailwind CSS" />
-    <img src="https://img.shields.io/badge/-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
-    <img src="https://img.shields.io/badge/-Lucide Icons-FD4D4D?style=for-the-badge&logo=lucide" alt="Lucide Icons" />
-    <img src="https://img.shields.io/badge/-Radix UI-9D4EDD?style=for-the-badge&logo=data:image/svg+xml;base64..." alt="Radix UI" />
-  </div>
-  <h3 align="center">Create a Stunning Developer Portfolio with Animations, Dark Mode, and Projects Showcase</h3>
-  <div align="center">
-    Follow the full video tutorial on 
-    <a href="https://youtu.be/YOUR_VIDEO_ID" target="_blank"><b>YouTube</b></a>
-  </div>
-  <br />
-</div>
+Portfolio et blog de Parfait Kom — [komi.invity.site](https://komi.invity.site)
 
-## 📋 Table of Contents
+| Dossier  | Stack                                   | Hébergement                                     |
+| -------- | --------------------------------------- | ----------------------------------------------- |
+| `front/` | Next.js 16 (App Router, Cache Components), Tailwind 4 | Vercel (Root Directory = `front`)  |
+| `back/`  | Node.js 22, Express 5, TypeScript, Prisma, Postgres   | Dokploy, projet « Komi Folio » → `komi-api.invity.site` |
 
-1. [Introduction](#-introduction)
-2. [Tech Stack](#-tech-stack)
-3. [Features](#-features)
-4. [Quick Start](#-quick-start)
-5. [Screenshots](#-screenshots)
-6. [Deployment](#-deployment)
+Tout le contenu (articles, projets, expériences, compétences, formation, events) se gère depuis **`/admin`**.
 
----
-
-## 🚀 Introduction
-
-In this tutorial, you'll learn how to build a modern portfolio website using **React**, **TailwindCSS**, **Vite**, and **Lucide Icons**. From dark mode support to responsive animations and deployable project showcases, this video walks you through every step—perfect for developers looking to level up their frontend skills or apply for jobs.
-
-🎥 Watch the full tutorial: [YouTube](https://youtu.be/YOUR_VIDEO_ID)
-
----
-
-## ⚙️ Tech Stack
-
-* **React** – Component-based UI development
-* **Vite** – Lightning-fast build tool
-* **TailwindCSS** – Utility-first CSS for styling
-* **Lucide Icons** – Clean and beautiful icon pack
-* **Radix UI** – Accessible component primitives
-* **TypeScript (optional)** – Type safety and tooling
-* **GitHub & Vercel** – Deployment
-
----
-
-## ⚡️ Features
-
-* 🌑 **Light/Dark Mode Toggle**
-  Save theme preference in local storage with beautiful transitions
-
-* 💫 **Animated Backgrounds**
-  Stars, meteors, scroll effects, and glowing UI elements
-
-* 📱 **Responsive Navigation**
-  Desktop and mobile menus with glassmorphism
-
-* 👨‍💻 **Hero & About Sections**
-  Showcase who you are with smooth intro animations and buttons
-
-* 📊 **Skills Grid**
-  Filterable progress bars and categories with animated width
-
-* 🖼️ **Projects Showcase**
-  Display screenshots, tech stacks, and GitHub/demo links
-
-* 📩 **Contact Section**
-  Social icons + responsive contact form with toast notifications
-
-* 🚀 **One-Click Deployment**
-  Easily host your site with Vercel and GitHub
-
----
-
-## 👌 Quick Start
-
-### Prerequisites
-
-* [Node.js](https://nodejs.org/)
-* [Git](https://git-scm.com/)
-
-### Clone and Run
+## Développement local
 
 ```bash
-git clone https://github.com/yourusername/react-tailwind-portfolio.git
-cd react-tailwind-portfolio
+# Base de données
+docker run -d --name komi-pg -e POSTGRES_USER=komi -e POSTGRES_PASSWORD=komi -e POSTGRES_DB=komi_folio -p 5433:5432 postgres:16-alpine
+
+# API (http://localhost:4000)
+cd back
+cp .env.example .env          # renseigner JWT_SECRET et ADMIN_PASSWORD
+npm install
+npx prisma migrate dev        # crée les tables
+npm run db:seed               # reprend le contenu de l'ancien portfolio
+npm run dev
+
+# Site (http://localhost:3000)
+cd front
+cp .env.example .env.local
 npm install
 npm run dev
 ```
 
-Your app will be available at: [http://localhost:5173](http://localhost:5173)
+Le compte admin est créé au démarrage de l'API à partir de `ADMIN_EMAIL` / `ADMIN_PASSWORD` s'il n'en existe aucun.
+Pour en ajouter ou changer un mot de passe : `npm run admin:create -- email "mot de passe" "Nom"`.
 
----
+## Comment le contenu se met à jour
 
-## 🖼️ Screenshots
+Les pages publiques sont pré-rendues et mises en cache (`"use cache"` + `cacheTag`). Après chaque modification
+dans l'admin, l'API appelle `POST {FRONT_URL}/api/revalidate` avec `REVALIDATE_SECRET` : la visite suivante
+reçoit le contenu à jour, sans redéploiement.
 
-> 📸 Add screenshots of your Hero section, Projects grid, and Contact form here to show off your site.
+## Base de données
 
----
+Modifier `back/prisma/schema.prisma`, puis `npx prisma migrate dev --name <nom>` et committer le dossier
+`prisma/migrations`. Les migrations sont appliquées automatiquement au démarrage du conteneur
+(`prisma migrate deploy`), suivies du seed (qui ne remplit que les tables vides).
 
-## ☁️ Deployment
+## CI/CD
 
-### Deploy on Vercel
+- **GitHub Actions** (`.github/workflows/ci.yml`) : typecheck, build, migrations et smoke test de l'API ; lint et build du front.
+- **Dokploy** redéploie `back/` à chaque push sur `main` qui touche `back/**`.
+- **Vercel** redéploie `front/` à chaque push (preview sur les branches, production sur `main`).
 
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Click **Deploy**
+## Variables d'environnement
 
-Your live website will be hosted on a custom subdomain (e.g. `https://your-name.vercel.app`)
-
----
-
-## 🔗 Useful Links
-
-* [React Documentation](https://reactjs.org/)
-* [Tailwind CSS Docs](https://tailwindcss.com/)
-* [Lucide Icons](https://lucide.dev/)
-* [Radix UI](https://www.radix-ui.com/)
-* [Vite](https://vitejs.dev/)
-* [Vercel](https://vercel.com/)
-
----
-
-Let me know if you'd like me to generate a version with your actual GitHub repo, YouTube URL, or a banner image suggestion!
+- `back/.env.example` : API (Dokploy → komi-back → Environment)
+- `front/.env.example` : site (Vercel → Settings → Environment Variables)

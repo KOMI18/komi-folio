@@ -1,0 +1,245 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  --animate-word: word 2.6s ease-in-out;
+  --animate-marquee: marquee 40s linear infinite;
+}
+
+:root {
+  --background: #fafaf9;
+  --foreground: #0c0a09;
+  --surface: #ffffff;
+  --surface-2: #f4f3f1;
+  --border: #e7e5e4;
+  --muted: #5d5853;
+  --primary: #6352e0;
+  --primary-foreground: #ffffff;
+  --accent: #0e9f6e;
+  --success: #0e9f6e;
+  --danger: #dc2626;
+  --glow: 99 82 224;
+  color-scheme: light;
+}
+
+.dark {
+  --background: #07080c;
+  --foreground: #e8e9ee;
+  --surface: #0e1017;
+  --surface-2: #151822;
+  --border: #1f2330;
+  --muted: #8f94a6;
+  --primary: #8f80fa;
+  --primary-foreground: #0b0a14;
+  --accent: #34d399;
+  --success: #34d399;
+  --danger: #f87171;
+  --glow: 143 128 250;
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    background: rgb(var(--glow) / 0.3);
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+}
+@utility eyebrow {
+  @apply font-mono text-xs uppercase tracking-[0.2em] text-muted;
+}
+@utility heading {
+  @apply text-balance text-4xl font-semibold tracking-tight md:text-5xl;
+}
+@utility accent {
+  @apply font-serif font-normal italic text-primary;
+}
+@utility card {
+  @apply rounded-2xl border bg-surface;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-foreground text-background hover:opacity-90;
+}
+@utility btn-accent {
+  @apply btn bg-primary text-primary-foreground hover:brightness-110;
+}
+@utility btn-ghost {
+  @apply btn border bg-surface hover:bg-surface-2;
+}
+@utility chip {
+  @apply inline-flex items-center rounded-full border bg-surface-2 px-2.5 py-0.5 font-mono text-[11px] text-muted;
+}
+@utility input {
+  @apply w-full rounded-xl border bg-surface px-4 py-2.5 text-sm outline-none transition placeholder:text-muted/70 focus:border-primary focus:ring-4 focus:ring-primary/15;
+}
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+@utility glow {
+  background: radial-gradient(600px circle at 50% 0%, rgb(var(--glow) / 0.18), transparent 70%);
+}
+
+/* Apparition au scroll (voir components/site/reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@keyframes word {
+  0% {
+    opacity: 0;
+    transform: translateY(0.3em);
+    filter: blur(4px);
+  }
+  12%,
+  88% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-0.3em);
+    filter: blur(4px);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Article de blog */
+.prose-article {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-quotes: var(--muted);
+  --tw-prose-quote-borders: var(--primary);
+  --tw-prose-code: var(--foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-bullets: var(--muted);
+  --tw-prose-counters: var(--muted);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+  --tw-prose-invert-body: var(--foreground);
+  --tw-prose-invert-headings: var(--foreground);
+  --tw-prose-invert-links: var(--primary);
+  --tw-prose-invert-bold: var(--foreground);
+  --tw-prose-invert-code: var(--foreground);
+  --tw-prose-invert-hr: var(--border);
+  --tw-prose-invert-quotes: var(--muted);
+  --tw-prose-invert-quote-borders: var(--primary);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+.prose-article :where(h2, h3) {
+  @apply scroll-mt-28 tracking-tight;
+}
+.prose-article :where(h2 > a, h3 > a) {
+  @apply no-underline;
+  color: inherit;
+}
+.prose-article :where(a):not(:where(h2 a, h3 a)) {
+  @apply underline decoration-primary/40 underline-offset-4 hover:decoration-primary;
+}
+.prose-article :where(img) {
+  @apply rounded-xl border;
+}
+.prose-article :where(:not(pre) > code) {
+  @apply rounded-md border bg-surface-2 px-1.5 py-0.5 text-[0.85em] font-normal before:content-none after:content-none;
+}
+.prose-article figure[data-rehype-pretty-code-figure] {
+  @apply my-7;
+}
+.prose-article pre {
+  @apply overflow-x-auto rounded-xl border px-0 py-4 text-[0.85rem] leading-relaxed;
+}
+.prose-article pre code {
+  @apply grid;
+}
+.prose-article pre [data-line] {
+  @apply px-5;
+}
+.prose-article [data-rehype-pretty-code-title] {
+  @apply rounded-t-xl border border-b-0 bg-surface-2 px-5 py-2 font-mono text-xs text-muted;
+}
+.prose-article [data-rehype-pretty-code-title] + pre {
+  @apply mt-0 rounded-t-none;
+}
+.prose-article [data-highlighted-line] {
+  background: rgb(var(--glow) / 0.12);
+  @apply border-l-2 border-primary;
+}
+
+/* Thèmes Shiki clair / sombre */
+.prose-article pre,
+.prose-article pre span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+.dark .prose-article pre,
+.dark .prose-article pre span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
