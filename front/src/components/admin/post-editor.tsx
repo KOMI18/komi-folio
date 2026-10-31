@@ -316,7 +316,7 @@ export function PostEditor() {
             <Toggle checked={draft.featured} onChange={(v) => set("featured", v)} label="Article mis en avant" />
           </div>
           <div className="card space-y-4 p-5">
-            <Field label="Image de couverture" hint="Format 16:9 recommandé (1600×900)">
+            <Field label="Image de couverture" hint="Affichée en haut de l’article et lors des partages sur les réseaux. Idéalement 1200×630 (ou 1600×900). Sans couverture : première image de l’article, sinon le logo.">
               <ImageInput value={draft.coverImage} onChange={(v) => set("coverImage", v)} />
             </Field>
             <Field label="Tags">
