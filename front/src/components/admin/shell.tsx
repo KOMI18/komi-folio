@@ -11,6 +11,7 @@ import {
   FolderKanban,
   GraduationCap,
   Image as ImageIcon,
+  KeyRound,
   LayoutDashboard,
   Loader2,
   LogOut,
@@ -45,6 +46,7 @@ const links = [
   { href: "/admin/media", label: "Médias", icon: ImageIcon },
   { href: "/admin/messages", label: "Messages", icon: Mail },
   { href: "/admin/subscribers", label: "Abonnés", icon: Users },
+  { href: "/admin/account", label: "Compte", icon: KeyRound },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
