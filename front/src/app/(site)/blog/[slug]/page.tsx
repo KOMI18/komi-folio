@@ -13,6 +13,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { Newsletter } from "@/components/site/newsletter";
 import { getAllPosts, getPost } from "@/lib/api";
 import { extractHeadings } from "@/lib/markdown";
+import { postOgImage } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
@@ -28,6 +29,7 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   const title = post.seoTitle || post.title;
   const description = post.seoDescription || post.excerpt;
   const url = `/blog/${post.slug}`;
+  const image = postOgImage(post);
   return {
     title,
     description,
@@ -42,9 +44,9 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
       modifiedTime: post.updatedAt,
       authors: [site.name],
       tags: post.tags,
-      ...(post.coverImage ? { images: [{ url: post.coverImage }] } : {}),
+      images: [image],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }
 
@@ -65,7 +67,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           "@type": "BlogPosting",
           headline: post.title,
           description: post.seoDescription || post.excerpt,
-          image: post.coverImage ? [post.coverImage] : [`${site.url}/og-default.png`],
+          image: [new URL(postOgImage(post).url, site.url).toString()],
           datePublished: post.publishedAt,
           dateModified: post.updatedAt,
           keywords: post.tags.join(", "),
