@@ -1,8 +1,9 @@
 import { Router } from "express";
 import { prisma } from "../../lib/prisma.js";
-import { asyncHandler, parse } from "../../lib/http.js";
+import { asyncHandler, HttpError, parse } from "../../lib/http.js";
 import { readingMinutes, slugify } from "../../lib/text.js";
 import { revalidate } from "../../lib/revalidate.js";
+import { enqueueAudio, refreshAudio, removeAudioFile, ttsEnabled } from "../../lib/audio.js";
 import { postSchema } from "./schemas.js";
 
 export const postsRouter = Router();
@@ -13,7 +14,7 @@ postsRouter.get(
     res.json(
       await prisma.post.findMany({
         orderBy: { updatedAt: "desc" },
-        omit: { content: true },
+        omit: { content: true, audioTimeline: true },
       }),
     );
   }),
@@ -39,6 +40,7 @@ postsRouter.post(
       },
     });
     revalidate(["posts"]);
+    refreshAudio(post);
     res.status(201).json(post);
   }),
 );
@@ -59,14 +61,27 @@ postsRouter.patch(
       },
     });
     revalidate(["posts"]);
+    refreshAudio(post);
     res.json(post);
+  }),
+);
+
+// Relance manuelle de la génération audio (aussi possible sur un brouillon, pour l'écouter avant de publier)
+postsRouter.post(
+  "/:id/audio",
+  asyncHandler(async (req, res) => {
+    if (!ttsEnabled()) throw new HttpError(503, "Synthèse vocale non configurée (TTS_URL)");
+    const post = await prisma.post.findUniqueOrThrow({ where: { id: String(req.params.id) }, select: { id: true } });
+    enqueueAudio(post.id);
+    res.status(202).json({ audioStatus: "PENDING" });
   }),
 );
 
 postsRouter.delete(
   "/:id",
   asyncHandler(async (req, res) => {
-    await prisma.post.delete({ where: { id: String(req.params.id) } });
+    const post = await prisma.post.delete({ where: { id: String(req.params.id) } });
+    await removeAudioFile(post.audioUrl);
     revalidate(["posts"]);
     res.status(204).end();
   }),

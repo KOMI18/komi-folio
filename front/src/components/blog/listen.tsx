@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Code2, Headphones, Music, Pause, Play, SkipBack, SkipForward, X } from "lucide-react";
-import type { SpeechSegment } from "@/lib/speech";
+import type { PostSpeech } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Ambient } from "./ambient";
 
@@ -31,7 +31,7 @@ function pickVoice(voices: SpeechSynthesisVoice[]) {
   return voices.filter((v) => v.lang.toLowerCase().startsWith("fr")).sort((a, b) => score(b) - score(a))[0] ?? null;
 }
 
-// Phrase en cours, mot à mot : la partie déjà prononcée s'allume (quand le navigateur fournit la position)
+// Phrase en cours, mot à mot : la partie déjà prononcée s'allume
 function KaraokeLine({ text, spokenUpTo }: { text: string; spokenUpTo: number | null }) {
   if (spokenUpTo === null) return <>{text}</>;
   const tokens = Array.from(text.matchAll(/\S+|\s+/g), (m) => ({ token: m[0], start: m.index }));
@@ -46,12 +46,17 @@ function KaraokeLine({ text, spokenUpTo }: { text: string; spokenUpTo: number | 
   );
 }
 
-export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; title: string; cover: string | null }) {
-  const supported = useSpeechSupported();
+const formatTime = (t: number) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+
+// Deux moteurs : le MP3 généré par Kokoro sur le serveur quand il existe, sinon la voix du navigateur
+export function Listen({ speech, title, cover }: { speech: PostSpeech; title: string; cover: string | null }) {
+  const { segments, audio: audioFile } = speech;
+  const speechSupported = useSpeechSupported();
   const [open, setOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [index, setIndex] = useState(0);
   const [spokenUpTo, setSpokenUpTo] = useState<number | null>(null);
+  const [time, setTime] = useState(0);
   const [rate, setRate] = useState(1);
   const [ambientOn, setAmbientOn] = useState(false);
   const [noFrenchVoice, setNoFrenchVoice] = useState(false);
@@ -59,18 +64,49 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
   const gen = useRef(0); // invalide les événements des phrases annulées
   const rateRef = useRef(1);
   const voice = useRef<SpeechSynthesisVoice | null>(null);
+  const audio = useRef<HTMLAudioElement | null>(null);
   const ambient = useRef<Ambient | null>(null);
   const lines = useRef<(HTMLLIElement | null)[]>([]);
 
   const finished = index >= segments.length;
 
+  // --- Moteur audio (MP3) : la position de lecture pilote la phrase et le mot affichés ---
+  const syncToTime = (t: number) => {
+    setTime(t);
+    let i = segments.findIndex((s) => (s.start ?? 0) > t) - 1;
+    if (i === -2) i = segments.length - 1;
+    i = Math.max(i, 0);
+    setIndex(i);
+    const seg = segments[i];
+    if (seg.kind === "note" || seg.start === undefined || seg.end === undefined) return setSpokenUpTo(null);
+    // Pas de minutage par mot pour le français : on avance au prorata du texte, ce qui suit bien le débit de la voix
+    const frac = Math.min(Math.max((t - seg.start) / Math.max(seg.end - seg.start, 0.01), 0), 1);
+    setSpokenUpTo(Math.round(frac * seg.text.length));
+  };
+
+  const getAudio = () => {
+    if (audio.current || !audioFile) return audio.current;
+    const el = new Audio(audioFile.url);
+    el.preload = "auto";
+    el.addEventListener("play", () => setPlaying(true));
+    el.addEventListener("pause", () => setPlaying(false));
+    el.addEventListener("ended", () => {
+      setPlaying(false);
+      setSpokenUpTo(null);
+      setIndex(segments.length);
+    });
+    audio.current = el;
+    return el;
+  };
+
+  // --- Moteur navigateur (Web Speech API) ---
   const chooseVoice = () => {
     const v = pickVoice(window.speechSynthesis.getVoices());
     if (v) voice.current = v;
     setNoFrenchVoice(!voice.current && window.speechSynthesis.getVoices().length > 0);
   };
 
-  function speakFrom(i: number) {
+  function speakWithBrowser(i: number) {
     const synth = window.speechSynthesis;
     const current = ++gen.current;
     synth.cancel();
@@ -92,7 +128,7 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
       setSpokenUpTo(e.charIndex + len);
     };
     utterance.onend = () => {
-      if (current === gen.current) speakFrom(i + 1);
+      if (current === gen.current) speakWithBrowser(i + 1);
     };
     utterance.onerror = (e) => {
       if (current === gen.current && e.error !== "interrupted" && e.error !== "canceled") setPlaying(false);
@@ -100,21 +136,36 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
     synth.speak(utterance);
   }
 
-  // Pause = on coupe la phrase et on la reprend au début (pause/resume est peu fiable sur Android)
+  // --- Commandes communes ---
+  function playFrom(i: number) {
+    const el = getAudio();
+    if (!el) return speakWithBrowser(i);
+    el.currentTime = i >= segments.length ? 0 : (segments[i].start ?? 0);
+    syncToTime(el.currentTime);
+    void el.play().catch(() => setPlaying(false));
+  }
+
+  // Côté navigateur, pause = on coupe la phrase et on la reprend au début (pause/resume est peu fiable sur Android)
   function pause() {
+    if (audio.current) return audio.current.pause();
     gen.current++;
-    window.speechSynthesis.cancel();
+    window.speechSynthesis?.cancel();
     setPlaying(false);
     setSpokenUpTo(null);
   }
 
-  const toggle = () => (playing ? pause() : speakFrom(finished ? 0 : index));
-  const go = (delta: number) => speakFrom(Math.min(Math.max(index + delta, 0), segments.length - 1));
+  const toggle = () => {
+    if (playing) return pause();
+    if (audio.current && !finished) return void audio.current.play().catch(() => setPlaying(false));
+    playFrom(finished ? 0 : index);
+  };
+  const go = (delta: number) => playFrom(Math.min(Math.max(index + delta, 0), segments.length - 1));
 
   const openPlayer = () => {
-    chooseVoice();
+    if (!audioFile) chooseVoice();
     setOpen(true);
-    speakFrom(finished ? 0 : index);
+    if (audio.current && !finished) void audio.current.play().catch(() => setPlaying(false));
+    else playFrom(finished ? 0 : index);
   };
 
   const close = () => {
@@ -128,7 +179,8 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
     const next = RATES[(RATES.indexOf(rate) + 1) % RATES.length];
     rateRef.current = next;
     setRate(next);
-    if (playing) speakFrom(index);
+    if (audio.current) audio.current.playbackRate = next;
+    else if (playing) speakWithBrowser(index);
   };
 
   const toggleAmbient = () => {
@@ -138,9 +190,41 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
     setAmbientOn(!ambientOn);
   };
 
+  // Suivi fluide de la lecture audio (timeupdate n'arrive que ~4 fois par seconde)
+  useEffect(() => {
+    if (!playing || !audio.current) return;
+    let frame = 0;
+    const tick = () => {
+      if (audio.current) syncToTime(audio.current.currentTime);
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+    // syncToTime ne dépend que des segments, stables pendant la vie du composant
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playing]);
+
+  // Commandes de l'écran verrouillé / casque Bluetooth (lecture audio uniquement)
+  useEffect(() => {
+    if (!open || !audioFile || !("mediaSession" in navigator)) return;
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title,
+      artist: "Parfait Kom",
+      album: "Blog",
+      artwork: cover ? [{ src: cover }] : [{ src: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    });
+    navigator.mediaSession.setActionHandler("play", () => document.getElementById("listen-toggle")?.click());
+    navigator.mediaSession.setActionHandler("pause", () => document.getElementById("listen-toggle")?.click());
+    navigator.mediaSession.setActionHandler("previoustrack", () => document.getElementById("listen-prev")?.click());
+    navigator.mediaSession.setActionHandler("nexttrack", () => document.getElementById("listen-next")?.click());
+    return () => {
+      for (const action of ["play", "pause", "previoustrack", "nexttrack"] as const) navigator.mediaSession.setActionHandler(action, null);
+    };
+  }, [open, audioFile, title, cover]);
+
   // La liste des voix arrive parfois après coup (Chrome)
   useEffect(() => {
-    if (!open) return;
+    if (!open || audioFile) return;
     const synth = window.speechSynthesis;
     const onVoices = () => {
       const v = pickVoice(synth.getVoices());
@@ -148,7 +232,7 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
     };
     synth.addEventListener("voiceschanged", onVoices);
     return () => synth.removeEventListener("voiceschanged", onVoices);
-  }, [open]);
+  }, [open, audioFile]);
 
   // Bloque le défilement de la page derrière le lecteur
   useEffect(() => {
@@ -164,7 +248,7 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
   useEffect(() => {
     if (!open) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    lines.current[Math.min(index, segments.length - 1)]?.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+    lines.current[Math.min(index, segments.length)]?.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
   }, [index, open, segments.length]);
 
   // Coupe tout si on quitte la page
@@ -172,6 +256,7 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
     const stop = () => {
       gen.current++;
       window.speechSynthesis?.cancel();
+      audio.current?.pause();
       ambient.current?.stop();
     };
     window.addEventListener("pagehide", stop);
@@ -195,9 +280,9 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  if (!supported || segments.length === 0) return null;
+  if ((!audioFile && !speechSupported) || segments.length === 0) return null;
 
-  const progress = Math.min(index / segments.length, 1) * 100;
+  const progress = (audioFile ? (finished ? 1 : time / audioFile.duration) : Math.min(index / segments.length, 1)) * 100;
   const iconBtn = "grid size-11 place-items-center rounded-full text-white/70 transition hover:bg-white/10 hover:text-white";
 
   return (
@@ -234,7 +319,7 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
                       }}
                     >
                       <button
-                        onClick={() => speakFrom(i)}
+                        onClick={() => playFrom(i)}
                         className={cn(
                           "block w-full text-left transition-colors duration-500",
                           active ? "text-white" : "text-white/30 hover:text-white/60",
@@ -266,11 +351,11 @@ export function Listen({ segments, title, cover }: { segments: SpeechSegment[]; 
             <footer className="relative z-10 px-5 pb-6 sm:px-8">
               <div className="mx-auto max-w-3xl">
                 <div className="h-1 overflow-hidden rounded-full bg-white/15">
-                  <div className="h-full rounded-full bg-white transition-[width] duration-500" style={{ width: `${progress}%` }} />
+                  <div className={cn("h-full rounded-full bg-white", !audioFile && "transition-[width] duration-500")} style={{ width: `${progress}%` }} />
                 </div>
                 <div className="mt-2 flex justify-between font-mono text-[11px] text-white/50">
                   <span>
-                    {Math.min(index + 1, segments.length)} / {segments.length}
+                    {audioFile ? `${formatTime(finished ? audioFile.duration : time)} / ${formatTime(audioFile.duration)}` : `${Math.min(index + 1, segments.length)} / ${segments.length}`}
                   </span>
                   {noFrenchVoice && <span>Pas de voix française sur cet appareil</span>}
                 </div>

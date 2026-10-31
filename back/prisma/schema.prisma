@@ -22,23 +22,36 @@ enum PostStatus {
   PUBLISHED
 }
 
+enum AudioStatus {
+  NONE
+  PENDING
+  READY
+  FAILED
+}
+
 model Post {
-  id             String     @id @default(cuid())
-  slug           String     @unique
+  id             String      @id @default(cuid())
+  slug           String      @unique
   title          String
   excerpt        String
   content        String
   coverImage     String?
   tags           String[]
-  status         PostStatus @default(DRAFT)
-  featured       Boolean    @default(false)
+  status         PostStatus  @default(DRAFT)
+  featured       Boolean     @default(false)
   seoTitle       String?
   seoDescription String?
-  readingMinutes Int        @default(1)
-  views          Int        @default(0)
+  readingMinutes Int         @default(1)
+  views          Int         @default(0)
+  // Mode écoute : MP3 généré par Kokoro + minutage de chaque phrase
+  audioStatus    AudioStatus @default(NONE)
+  audioUrl       String?
+  audioTimeline  Json?
+  audioHash      String?
+  audioError     String?
   publishedAt    DateTime?
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 
   @@index([status, publishedAt])
 }

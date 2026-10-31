@@ -18,6 +18,9 @@ const schema = z.object({
   RESEND_API_KEY: z.string().optional(),
   RESEND_FROM: z.string().optional(),
   CONTACT_TO_EMAIL: z.string().optional(),
+  // Synthèse vocale Kokoro-FastAPI (mode écoute du blog) ; vide = désactivée
+  TTS_URL: z.string().url().optional().or(z.literal("")),
+  TTS_VOICE: z.string().default("ff_siwis"),
 });
 
 const parsed = schema.safeParse(process.env);

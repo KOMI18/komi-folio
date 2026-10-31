@@ -15,7 +15,6 @@ import { Newsletter } from "@/components/site/newsletter";
 import { getAllPosts, getPost } from "@/lib/api";
 import { extractHeadings } from "@/lib/markdown";
 import { postOgImage } from "@/lib/seo";
-import { toSpeechSegments } from "@/lib/speech";
 import { site } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
@@ -122,7 +121,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <Listen segments={toSpeechSegments(post.content)} title={post.title} cover={post.coverImage} />
+              {post.speech && <Listen speech={post.speech} title={post.title} cover={post.coverImage} />}
               <Share url={url} title={post.title} />
             </div>
           </div>
