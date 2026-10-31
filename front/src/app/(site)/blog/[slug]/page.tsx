@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock } from "lucide-react";
+import { Listen } from "@/components/blog/listen";
 import { Markdown } from "@/components/blog/markdown";
 import { PostCard } from "@/components/blog/post-card";
 import { ReadingProgress } from "@/components/blog/reading-progress";
@@ -13,6 +14,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { Newsletter } from "@/components/site/newsletter";
 import { getAllPosts, getPost } from "@/lib/api";
 import { extractHeadings } from "@/lib/markdown";
+import { toSpeechSegments } from "@/lib/speech";
 import { site } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
@@ -117,7 +119,10 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
                 </p>
               </div>
             </div>
-            <Share url={url} title={post.title} />
+            <div className="flex flex-wrap items-center gap-3">
+              <Listen segments={toSpeechSegments(post.content)} title={post.title} cover={post.coverImage} />
+              <Share url={url} title={post.title} />
+            </div>
           </div>
         </header>
 
