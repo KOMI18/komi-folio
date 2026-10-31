@@ -4,6 +4,7 @@ import { z } from "zod";
 import { prisma } from "../lib/prisma.js";
 import { asyncHandler, HttpError, parse } from "../lib/http.js";
 import { sendMail } from "../lib/mail.js";
+import { speechPayload } from "../lib/audio.js";
 
 export const publicRouter = Router();
 
@@ -74,13 +75,14 @@ publicRouter.get(
   asyncHandler(async (req, res) => {
     const post = await prisma.post.findFirst({ where: { slug: String(req.params.slug), status: "PUBLISHED" } });
     if (!post) throw new HttpError(404, "Article introuvable");
+    const { audioTimeline: _t, audioHash: _h, audioError: _e, audioStatus: _s, audioUrl: _u, ...publicPost } = post;
     const related = await prisma.post.findMany({
       where: { status: "PUBLISHED", id: { not: post.id }, tags: { hasSome: post.tags } },
       select: postListSelect,
       orderBy: { publishedAt: "desc" },
       take: 3,
     });
-    res.json({ ...post, related });
+    res.json({ ...publicPost, related, speech: speechPayload(post) });
   }),
 );
 

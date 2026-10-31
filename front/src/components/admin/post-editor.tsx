@@ -22,6 +22,7 @@ import { api, ApiError, uploadFile } from "@/lib/admin-api";
 import { site } from "@/lib/site";
 import type { Post } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { AudioPanel } from "./audio-panel";
 import { Field, ImageInput, TagsInput, Toggle } from "./fields";
 import { MarkdownPreview } from "./markdown-preview";
 import { toast } from "./toast";
@@ -326,6 +327,7 @@ export function PostEditor() {
               <input className="input font-mono text-xs" value={draft.slug} onChange={(e) => set("slug", e.target.value)} placeholder="généré depuis le titre" />
             </Field>
           </div>
+          {id && <AudioPanel postId={id} refreshKey={saved} />}
           <div className="card space-y-4 p-5">
             <p className="font-medium">SEO</p>
             <Field label="Titre SEO" hint={`${(draft.seoTitle || draft.title).length}/60 caractères conseillés`}>

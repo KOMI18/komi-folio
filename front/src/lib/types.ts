@@ -20,10 +20,31 @@ export interface Post extends PostSummary {
   seoDescription: string | null;
   views: number;
   createdAt: string;
+  // Renseignés uniquement par l'API admin
+  audioStatus?: AudioStatus;
+  audioUrl?: string | null;
+  audioError?: string | null;
+}
+
+export type AudioStatus = "NONE" | "PENDING" | "READY" | "FAILED";
+
+// Une ligne du mode écoute ; start/end (secondes) présents quand l'audio Kokoro est disponible
+export interface SpeechSegment {
+  kind: "heading" | "text" | "quote" | "item" | "note";
+  text: string;
+  speak?: string;
+  start?: number;
+  end?: number;
+}
+
+export interface PostSpeech {
+  segments: SpeechSegment[];
+  audio: { url: string; duration: number } | null;
 }
 
 export interface PostDetail extends Post {
   related: PostSummary[];
+  speech?: PostSpeech;
 }
 
 export interface Paginated<T> {
